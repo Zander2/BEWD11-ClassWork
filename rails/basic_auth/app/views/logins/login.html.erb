@@ -1,0 +1,34 @@
+
+
+	<div>
+		<h1 class="container well margin-top-20 small-container">Login to your account</h1>
+	</div>
+<div class="container well margin-top-20 small-container">
+
+<div class="container margin-top-20">
+    <% if flash[:error] %>
+        <div class="alert alert-danger">
+            <%= flash[:error] %>
+        </div>
+    <% end %>
+
+	<%= form_for(@logins, url: logins_path) do |f|  %>
+	<div class="bold margin-top-20">
+		Email:
+	</div>
+	<div class="margin-top-20">
+		<%= f.text_field(:email_address, class: "form-control") %>
+	</div>
+	<div class="bold margin-top-20">
+		Password:
+	</div>
+	<div class="margin-top-20">
+		<%= f.text_field(:password, class: "form-control") %>
+	</div>
+	
+	<div class="margin-top-20">
+		<%= f.submit class: "btn btn-primary", value: "login" %>
+	</div>
+	<% end %>
+</div>
+

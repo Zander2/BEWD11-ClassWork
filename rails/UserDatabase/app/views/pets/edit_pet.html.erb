@@ -1,0 +1,45 @@
+
+
+<div class="small-container">
+	<h1>Pet Database</h1>
+
+	<div>
+		<a href="/users/<%= @user_id %>/pets" class="btn btn-primary">Back</a>
+	</div>
+</div>
+
+<%= form_for(@pet, url: user_pet_path(@user_id,@pet.id),  method: "PUT") do |pet| %>
+<div class="small-container margin-top-20">
+	<div class="well">
+		<div class="bold">
+			Name
+		</div>
+		<div class="margin-top-20">
+			<%= pet.text_field(:name, class: "form-control") %>
+		</div>
+		<div class="bold margin-top-20">
+			Pet Type
+		</div>
+		<div class="margin-top-20">
+				<%= pet.text_field(:pet_type, class: "form-control") %>
+		</div>
+		<div class="bold margin-top-20">
+			Gender
+		</div>
+		<div class="margin-top-20">
+				<%= pet.text_field(:gender, class: "form-control") %>
+		</div>
+		<div class="bold margin-top-20">
+			Age
+		</div>
+		<div class="margin-top-20">
+				<%= pet.text_field(:age, class: "form-control") %>
+		</div>
+		<div class="margin-top-20 txt-right">
+			<a href="/users/<%= @user_id %>/pets" class="btn btn-default">Cancel</a>
+			<%= pet.submit class: "btn btn-primary", value: "Save" %>
+			<%= pet.submit class: "btn btn-primary", value: "Delete" %>
+		</div>
+<%end%>
+	</div>
+</div>

@@ -1,0 +1,94 @@
+<div class="container">
+	<h1><%= @user.firstname.capitalize %>'s pets</h1>
+	<div>
+    	<div>
+    		<a href="/users" class="btn btn-primary">Back</a>
+    		<a href="#" class="btn btn-primary" data-target="#add-pet-modal" data-toggle="modal">Add a Pet</a>
+    	</div>
+	</div>
+</div>
+<div class="container margin-top-20">
+    <% if @error %>
+        <% @error.each do |error| %>
+            <div class="alert alert-danger">
+                <%= error %>
+            </div>
+        <% end %>
+    <% end %>
+	<table class="table striped">
+		<thead>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Gender</th>
+			<th>Age</th>
+			<th></th>
+		</thead>
+
+		<tbody>
+		    <% @pets.each do |pet| %>
+			<tr>
+				<td>
+					<%= pet.name %>
+				</td>
+				<td>
+					<%= pet.pet_type %>
+				</td>
+				<td>
+					<%= pet.gender %>
+				</td>
+				<td>
+					<%= pet.age %>
+				</td>
+				<td>
+					<a href="/users/<%= @user_id %>/pets/<%= pet.id %>/edit" class="btn btn-primary">Edit</a>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+
+
+<%= form_for @pet_new, :url => user_pets_path do |pet| %>
+<div id="add-pet-modal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">Add a Pet</h4>
+			</div>
+			<div class="modal-body">
+				<div class="bold">
+					Name
+				</div>
+				<div class="margin-top-20">
+				<%= pet.text_field(:name, class: "form-control") %>
+				</div>
+				<div class="bold margin-top-20">
+					Pet Type
+				</div>
+				<div class="margin-top-20">
+					<%= pet.text_field(:pet_type, class: "form-control")  %>
+				</div>
+				<div class="bold margin-top-20">
+					Gender
+				</div>
+				<div class="margin-top-20">
+					<%= pet.text_field(:gender, class: "form-control") %>
+				</div>
+				<div class="bold margin-top-20">
+					Age
+				</div>
+				<div class="margin-top-20">
+					<%= pet.text_field(:age, class: "form-control") %>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Save Pet</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<%end%>

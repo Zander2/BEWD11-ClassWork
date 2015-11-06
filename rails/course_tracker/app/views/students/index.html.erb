@@ -1,0 +1,186 @@
+
+
+<div class="container">
+	<h1>Student Database</h1>
+
+	<div>
+		<a href="" class="btn btn-primary" data-target="#add-student-modal" data-toggle="modal">Add Student</a>
+	</div>
+</div>
+
+<div class="container margin-top-20">
+    <% if flash[:error] %>
+        <div class="alert alert-danger">
+            <%= flash[:error] %>
+        </div>
+    <% end %>
+    
+	<table class="table striped">
+		<thead>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Age</th>
+			<th>Courses</th>
+			<th></th>
+		</thead>
+<%          @std_edit = Hash.new() %>
+		<tbody>
+		    <% @students.each do |student| %>
+			<tr>
+				<td>
+				    <% @std_edit[student.id] = student %>
+					<%= student.name %>
+				</td>
+				<td>
+					<%= student.email %>
+				</td>
+				<td>
+					<%= student.age %>
+				</td>
+				<td>
+					<% student.courses.each_with_index do |course, index| %>
+    					<% if index == 0 %>
+    					    <%= "#{course.name}" %>
+    					<% else %>
+        					<%= ", #{course.name}" %> 
+    					<%end%>
+					<%end%>
+				</td>
+				<td>
+					<a href="#add-course-modal" class="btn btn-primary" data-target="#add-course-modal" data-toggle="modal">Course Enrollment</a>
+					<a href="#edit-course-modal" class="btn btn-info" data-target="#edit-student-modal" data-toggle="modal" data-id="<%=student.id%>">Edit Student</a>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<div id="add-student-modal" class="modal fade" tabindex="-1" data-width="760">
+	<div class="modal-dialog">
+		<div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Add Student</h3>
+          </div>
+        <%= form_for @student do |student| %>          
+          <div class="modal-body">
+            <div class="row-fluid">
+              <div class="span6">
+                <div class="bold">
+					Name
+				</div>
+				<div class="margin-top-20">
+				    <%= student.text_field(:name, class: "form-control") %>
+				</div>
+				<div class="bold margin-top-20">
+					Email
+				</div>
+				<div class="margin-top-20">
+					<%= student.text_field(:email, class: "form-control")  %>
+				</div>
+				<div class="bold margin-top-20">
+					Age
+				</div>
+				<div class="margin-top-20">
+					<%= student.text_field(:age, class: "form-control") %>
+				</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Save Student</button>
+          </div>
+         <%end%>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div id="edit-student-modal" class="modal fade" tabindex="-1" data-width="760">
+	<div class="modal-dialog">
+		<div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Add Student</h3>
+          </div>
+        <%= form_for @student do |sdt| %>          
+          <div class="modal-body">
+            <div class="row-fluid">
+              <div class="span6">
+                <div class="bold">
+					Name
+				</div>
+				<div class="margin-top-20">
+				    <%= sdt.text_field(:name, class: "form-control", value: "#{@std_edit[1][:name]}") %>
+				</div>
+				<div class="bold margin-top-20">
+					Email
+					<%=  %>
+				</div>
+				<div class="margin-top-20">
+					<%= sdt.text_field(:email, class: "form-control") %>
+				</div>
+				<div class="bold margin-top-20">
+					Age
+				</div>
+				<div class="margin-top-20">
+					<%= sdt.text_field(:age, class: "form-control") %>
+				</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-primary">Save Student</button>
+          </div>
+         <%end%>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<%= form_for @student do |student| %>
+<div id="add-course-modal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">Add a Student</h4>
+			</div>
+			<div class="modal-body">
+				<div class="bold">
+					Name
+				</div>
+				<div class="margin-top-20">
+				<%= student.text_field(:name, class: "form-control") %>
+				</div>
+				<div class="bold margin-top-20">
+					Email
+				</div>
+				<div class="margin-top-20">
+					<%= student.text_field(:email, class: "form-control")  %>
+				</div>
+				<div class="bold margin-top-20">
+					Age
+				</div>
+				<div class="margin-top-20">
+					<%= student.text_field(:age, class: "form-control") %>
+				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Save Student</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<%end%>
+
+
+
+
+
+
+

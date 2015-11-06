@@ -1,0 +1,30 @@
+<div class="container">
+	<h1><%=@student.name%> Enrollment</h1>
+</div>
+
+<div class="container margin-top-20">
+    
+	<table class="table striped">
+		<thead>
+			<th>Course list</th>
+		</thead>
+        <%= form_for(@student, url: enrollments_student_path(@student.id),  method: "post") do |student| %>
+		<tbody>
+			<tr>
+				<td>
+				    <%= select_tag 'course_id', options_for_select(Course.all.order(:name).collect{ |c| [c.name, c.id] }, @student.courses.ids ),  :multiple => true, :size => 10 %>
+					<%# collection_select(:student, :course, Course.all.order(:name), :id, :name, {selected: @student.courses.ids}, {multiple: true}) %>
+				    <%#select_tag 'course_id', options_for_select(Course.all.order(:name).collect {|c| [c.name, c.id]}, @student.courses.map {|j| j.id}), :multiple => true, :size => 10%>
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= student.submit class: "btn btn-primary" %>
+				</td>
+			</tr>
+		</tbody>
+		<%end%>
+	</table>
+</div>
+
