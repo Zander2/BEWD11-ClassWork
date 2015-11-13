@@ -48,7 +48,7 @@
 				</td>
 				<td>
 					<a href="#add-course-modal" class="btn btn-primary" data-target="#add-course-modal" data-toggle="modal">Course Enrollment</a>
-					<a href="#edit-course-modal" class="btn btn-info" data-target="#edit-student-modal" data-toggle="modal" data-id="<%=student.id%>">Edit Student</a>
+					<a href="#edit-course-modal" class="btn btn-info" data-target="#edit-student-modal" data-toggle="modal" data-whatever="<%=student.id%>">Edit Student</a>
 				</td>
 			</tr>
 			<% end %>
@@ -120,7 +120,7 @@
 					<%=  %>
 				</div>
 				<div class="margin-top-20">
-					<%= sdt.text_field(:email, class: "form-control") %>
+					<%= sdt.text_field(:email, class: "form-control"), value: "#{data_id}" %>
 				</div>
 				<div class="bold margin-top-20">
 					Age
