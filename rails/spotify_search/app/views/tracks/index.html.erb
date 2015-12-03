@@ -1,7 +1,13 @@
 <div class="container margin-top-20">
 	<div class="pull-right">
-		<a href="#" class="btn btn-info">Login to Spotify</a>
-		<a href="#" class="btn btn-warning">View Saved Tracks</a>
+		
+		
+		<% if session[:spotify_access_token] %>
+		    <%= link_to('View Saved Tracks', tracks_saved_path, :method => :get, :class => "btn btn-warning") %>
+		    <%= link_to('Logout', auth_logout_path, :method => :get, :class => "btn btn-danger") %>
+		<% else %>
+		    <%= link_to('Login to Spotify', auth_spotify_path, :method => :get, :class => "btn btn-info") %>
+		<%end%>
 	</div>
 
 	<div class="clearfix"></div>
@@ -27,7 +33,7 @@
 				<%= image_tag track["album"]["images"].first["url"], class: "img-responsive img-track" %>
 			</div>
 			<div class="col-sm-9">
-				<h2><%= track["name"] %></h2>
+				<h2><%= track["name"] %></h2><%= track["id"] %>
 				<p>
 					By <%= track["artists"].first["name"] %>
 				</p>
@@ -40,10 +46,10 @@
 					</audio>
 				</div>
 				<div class="margin-top-20">
-					<button type="submit" class="btn btn-success btn-sm">
-						<span class="glyphicon glyphicon-ok margin-right-5"></span>
+				    <%= link_to(track_path(track["id"]), :method => :put, class: "btn btn-success btn-sm") do %>
+                        <span class="glyphicon glyphicon-ok margin-right-5"></span>
 						Save Track
-					</button>
+                    <%end%>
 				</div>
 			</div>
 		</div>

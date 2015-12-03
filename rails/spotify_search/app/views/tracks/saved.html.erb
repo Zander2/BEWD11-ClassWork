@@ -1,38 +1,40 @@
 <div class="container margin-top-20">
 	<div>
-		<a href="#" class="btn btn-info">
-			<span class="glyphicon glyphicon-menu-left"></span>
+    	 <%= link_to(tracks_path, :method => :get, class: "btn btn-info") do %>
+            <span class="glyphicon glyphicon-menu-left"></span>
 			Back
-		</a>
+        <%end%>
 	</div>
 
 	<div id="song-container">
 		<!--One Song-->
+		<% @tracks_saved.each do |track| %>
 		<div class="row margin-top-20 one-song">
 			<div class="col-sm-3">
-				<img src="https://i.scdn.co/image/d83a086148afe6539dae524607cbe4b6ccdd0360" class="img-responsive" />
+				<%= image_tag track["track"]["album"]["images"].first["url"], class: "img-responsive img-track" %>
 			</div>
 			<div class="col-sm-9">
-				<h2>Hello</h2>
+				<h2><%= track["track"]["name"] %></h2>
 				<p>
-					By Adele
+					<%= track["track"]["artists"].first["name"] %>
 				</p>
 				<p>
-					Album: Hello
+					Album: <%= track["track"]["album"]["name"] %>
 				</p>
 				<div class="margin-top-20">
 					<audio controls>
-						<source src="https://p.scdn.co/mp3-preview/4ab65f9b193ccc37f2059344322462ae5e9dac90" type="audio/mpeg">
+						<source src="<%= track['track']['preview_url'] %>" type="audio/mpeg">
 					</audio>
 				</div>
 				<div class="margin-top-20">
-					<button type="submit" class="btn btn-danger btn-sm">
-						<span class="glyphicon glyphicon-remove margin-right-5"></span>
-						Remove Track
-					</button>
+					<%= link_to(track_path(track["track"]["id"]), :method => :delete, class: "btn btn-danger btn-sm") do %>
+                        <span class="glyphicon glyphicon-remove margin-right-5"></span>
+            			Remove Track
+                    <%end%>
 				</div>
 			</div>
 		</div>
+		<%end%>
 		<!--/One Song-->
 	</div>
 </div>

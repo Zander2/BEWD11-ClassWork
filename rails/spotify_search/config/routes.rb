@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
     
-    resources :tracks
+    resources :tracks, only: [:index, :update, :destroy]
+
+    get 'auth/spotify' => "authentications#create"
+    get 'auth/logout' => "authentications#destroy"
+    get 'tracks/saved' => "tracks#saved"
     
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
